@@ -39,8 +39,23 @@ const MORSE_TABLE = {
 
 function decode(expr) {
     // write your solution here
+    const morseBinarArray = expr.split('').join('');
+    let res='';
+    if (expr.length % 10 !== 0) {
+        return false;
+    }
+    for (let i = 0; i < morseBinarArray.length; i=i+10) {
+        let morseSubstring = morseBinarArray.substring(i, i+10);
+        let morseChar = morseSubstring.replace(/11/g, '-').replace(/10/g, '.').replace(/0/g, '');
+        if (morseChar in MORSE_TABLE){
+            res += (MORSE_TABLE[morseChar])
+        }
+        if (morseChar=='**********'){
+            res+=' '
+        }
+    }
+    return res;
 }
-
 module.exports = {
     decode
 }
